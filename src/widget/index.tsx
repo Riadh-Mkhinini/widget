@@ -14,7 +14,7 @@ const Widget = () => (
   </div>
 );
 
-// This is the function that the host page will call
+// This is the function that the host page will calls
 export function initWidget(container: HTMLElement) {
   const root = ReactDOM.createRoot(container);
   root.render(<Widget />);
