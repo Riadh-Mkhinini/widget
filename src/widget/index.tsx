@@ -13,7 +13,7 @@ type WidgetProps = {
 const Widget: FC<WidgetProps> = (props) => {
   const { options } = props;
   return (
-    <div className="p-4 bg-white border rounded shadow-md text-gray-800 font-sans">
+    <div className="p-4 bg-red-50 border rounded shadow-md text-gray-800 font-sans">
       <h2 className="text-lg font-bold mb-2">📦 Bookini Widget</h2>
       <p className="text-sm">
         Loaded with ID: <span className="font-mono">{options?.id}</span>
