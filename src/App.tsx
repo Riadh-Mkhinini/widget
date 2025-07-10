@@ -1,14 +1,8 @@
-const App = () => (
-  <div
-    style={{
-      border: "1px solid #ddd",
-      padding: "1em",
-      fontFamily: "sans-serif",
-    }}
-  >
-    <h3>📦 Bookini Widget</h3>
-    <p>Hello from embedded React!</p>
-  </div>
-);
+import ReactDOM from "react-dom/client";
+import Widget from "./widget";
 
-export default App;
+// This is the function that the host page will call
+export function initWidget(container: HTMLElement, options?: { id?: string }) {
+  const root = ReactDOM.createRoot(container);
+  root.render(<Widget id={options?.id} />);
+}
