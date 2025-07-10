@@ -1,6 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
 import type { FC } from "react";
 import ReactDOM from "react-dom/client";
+import "../index.css";
 
 type Options = {
   id?: string;
@@ -12,17 +13,10 @@ type WidgetProps = {
 const Widget: FC<WidgetProps> = (props) => {
   const { options } = props;
   return (
-    <div
-      style={{
-        border: "1px solid #ddd",
-        padding: "1em",
-        fontFamily: "sans-serif",
-      }}
-    >
-      <h3>📦 Bookini Widget</h3>
-      <p>Hello from embedded React!</p>
-      <p>
-        Loaded with ID: <strong>{options?.id}</strong>
+    <div className="p-4 bg-white border rounded shadow-md text-gray-800 font-sans">
+      <h2 className="text-lg font-bold mb-2">📦 Bookini Widget</h2>
+      <p className="text-sm">
+        Loaded with ID: <span className="font-mono">{options?.id}</span>
       </p>
     </div>
   );
