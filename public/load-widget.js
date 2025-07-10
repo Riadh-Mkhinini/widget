@@ -1,4 +1,4 @@
-import { initWidget } from "./widget.js";
+import { initWidget } from "../dist/widget";
 
 const container = document.getElementById("my-widget");
 if (container) {
