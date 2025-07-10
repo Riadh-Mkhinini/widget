@@ -1,21 +1,20 @@
 {
   "headers": [
     {
-      "source": "/api/(.*)",
+      "source": "/dist/(.*)",
       "headers": [
         {
           "key": "Access-Control-Allow-Origin",
-          "value": "https://app.example"
+          "value": "*" // Or restrict to your domain
         },
         {
           "key": "Access-Control-Allow-Methods",
-          "value": "GET, POST, OPTIONS"
+          "value": "GET"
         },
         {
           "key": "Access-Control-Allow-Headers",
-          "value": "Content-Type, Authorization"
-        },
-        { "key": "Access-Control-Allow-Credentials", "value": "true" }
+          "value": "Content-Type"
+        }
       ]
     }
   ]
