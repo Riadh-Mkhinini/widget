@@ -15,6 +15,7 @@ const Widget = ({ id }: { id?: string }) => (
 );
 
 export default Widget;
+
 // This is the function that the host page will call
 // export function initWidget(container: HTMLElement, options?: { id?: string }) {
 //   const root = ReactDOM.createRoot(container);
