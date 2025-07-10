@@ -14,6 +14,7 @@ export default defineConfig({
     "process.env.NODE_ENV": JSON.stringify("production"),
   },
   build: {
+    cssCodeSplit: false,
     lib: {
       entry: path.resolve(__dirname, "src/widget/index.tsx"),
       name: "BookiniWidget",
