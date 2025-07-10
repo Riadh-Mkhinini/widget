@@ -2,8 +2,15 @@
 import type { FC } from "react";
 import ReactDOM from "react-dom/client";
 
-const Widget: FC<Options> = (props) => {
-  const { id } = props;
+type Options = {
+  id?: string;
+};
+type WidgetProps = {
+  options?: Options;
+};
+
+const Widget: FC<WidgetProps> = (props) => {
+  const { options } = props;
   return (
     <div
       style={{
@@ -15,17 +22,14 @@ const Widget: FC<Options> = (props) => {
       <h3>📦 Bookini Widget</h3>
       <p>Hello from embedded React!</p>
       <p>
-        Loaded with ID: <strong>{id}</strong>
+        Loaded with ID: <strong>{options?.id}</strong>
       </p>
     </div>
   );
 };
 
-type Options = {
-  id?: string;
-};
 // This is the function that the host page will calls
 export function initWidget(container: HTMLElement, options?: Options) {
   const root = ReactDOM.createRoot(container);
-  root.render(<Widget id={options?.id} />);
+  root.render(<Widget options={options} />);
 }
