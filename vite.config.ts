@@ -15,7 +15,7 @@ export default defineConfig({
   },
   build: {
     lib: {
-      entry: path.resolve(__dirname, "src/App.tsx"),
+      entry: path.resolve(__dirname, "src/widget/index.tsx"),
       name: "BookiniWidget",
       formats: ["es"],
       fileName: () => "widget.js",

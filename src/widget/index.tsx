@@ -1,3 +1,6 @@
+/* eslint-disable react-refresh/only-export-components */
+import ReactDOM from "react-dom/client";
+
 const Widget = ({ id }: { id?: string }) => (
   <div
     style={{
@@ -7,17 +10,14 @@ const Widget = ({ id }: { id?: string }) => (
     }}
   >
     <h3>📦 Bookini Widget</h3>
-    <p>Hello from embedded React!</p>
     <p>
       Loaded with ID: <strong>{id}</strong>
     </p>
   </div>
 );
 
-export default Widget;
-
 // This is the function that the host page will call
-// export function initWidget(container: HTMLElement, options?: { id?: string }) {
-//   const root = ReactDOM.createRoot(container);
-//   root.render(<Widget id={options?.id} />);
-// }
+export function initWidget(container: HTMLElement, options?: { id?: string }) {
+  const root = ReactDOM.createRoot(container);
+  root.render(<Widget id={options?.id} />);
+}
