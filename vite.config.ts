@@ -10,6 +10,9 @@ const __dirname = path.dirname(__filename);
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
+  define: {
+    "process.env.NODE_ENV": JSON.stringify("production"),
+  },
   build: {
     lib: {
       entry: path.resolve(__dirname, "src/widget/index.tsx"),
