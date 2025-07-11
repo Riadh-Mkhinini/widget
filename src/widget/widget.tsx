@@ -19,7 +19,14 @@ const Widget: FC<WidgetProps> = (props) => {
   const { options } = props;
 
   const onClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    console.log({ rooms: 1, adults: 1, children: [] });
+
     options?.onClickSearch?.(event, { rooms: 1, adults: 1, children: [] });
+    window.dispatchEvent(
+      new CustomEvent("bookini:search", {
+        detail: { id: options?.id, rooms: 1, adults: 1, children: [] },
+      })
+    );
   };
   return (
     <div className="font-sans p-4 rounded border bg-background text-foreground shadow-md">
