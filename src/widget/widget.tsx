@@ -22,6 +22,8 @@ const Widget: FC<WidgetProps> = (props) => {
   );
 };
 
+export default Widget;
+
 // This is the function that the host page will calls
 export function initWidget(container: HTMLElement, options?: Options) {
   const root = ReactDOM.createRoot(container);
