@@ -24,18 +24,17 @@ export default defineConfig({
           const cssChunk = bundle[cssFile];
 
           if (jsChunk.type === "chunk" && cssChunk.type === "asset") {
-            // Extract :root variables
-            const rootVars =
-              String(cssChunk.source).match(/:root\s*\{[^}]+\}/)?.[0] ?? "";
+            const css = String(cssChunk.source);
+            const rootVars = css.match(/:root\s*\{[^}]+\}/)?.[0] ?? "";
 
             jsChunk.code =
               `
-const styleVars = document.createElement('style');
-styleVars.textContent = ${JSON.stringify(rootVars)};
-document.head.appendChild(styleVars);
+const rootVars = document.createElement("style");
+rootVars.textContent = ${JSON.stringify(rootVars)};
+document.head.appendChild(rootVars);
 ` +
-              `const style = document.createElement('style');
-style.textContent = ${JSON.stringify(cssChunk.source)};
+              `const style = document.createElement("style");
+style.textContent = ${JSON.stringify(css)};
 document.head.appendChild(style);
 ` +
               jsChunk.code;
