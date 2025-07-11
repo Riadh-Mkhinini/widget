@@ -6,6 +6,10 @@ import { Button } from "@/components/ui/button";
 
 type Options = {
   id?: string;
+  onClickSearch?: (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    params: { rooms: number; adults: number; children: Array<number> }
+  ) => void;
 };
 type WidgetProps = {
   options?: Options;
@@ -13,13 +17,19 @@ type WidgetProps = {
 
 const Widget: FC<WidgetProps> = (props) => {
   const { options } = props;
+
+  const onClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    options?.onClickSearch?.(event, { rooms: 1, adults: 1, children: [] });
+  };
   return (
-    <div className="bookini-widget font-sans p-4 rounded border bg-background text-foreground shadow-md">
+    <div className="font-sans p-4 rounded border bg-background text-foreground shadow-md">
       <h2 className="text-lg font-bold mb-2">📦 Bookini Widget</h2>
       <p className="text-sm">
         Loaded with ID: <span className="font-mono">{options?.id}</span>
       </p>
-      <Button className="mt-4">Click Me</Button>
+      <Button className="mt-4" onClick={onClick}>
+        Click Me
+      </Button>
     </div>
   );
 };
