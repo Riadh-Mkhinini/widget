@@ -12,27 +12,34 @@ export default defineConfig({
   plugins: [
     react(),
     {
-      name: "inline-css",
+      name: "inline-css-with-vars",
       apply: "build",
       enforce: "post",
       generateBundle(_, bundle) {
-        const jsFile = Object.keys(bundle).find((file) => file.endsWith(".js"));
-        const cssFile = Object.keys(bundle).find((file) =>
-          file.endsWith(".css")
-        );
+        const jsFile = Object.keys(bundle).find((f) => f.endsWith(".js"));
+        const cssFile = Object.keys(bundle).find((f) => f.endsWith(".css"));
 
         if (jsFile && cssFile) {
           const jsChunk = bundle[jsFile];
           const cssChunk = bundle[cssFile];
 
           if (jsChunk.type === "chunk" && cssChunk.type === "asset") {
+            // Extract :root variables
+            const rootVars =
+              String(cssChunk.source).match(/:root\s*\{[^}]+\}/)?.[0] ?? "";
+
             jsChunk.code =
-              `const style = document.createElement('style');` +
-              `style.textContent = ${JSON.stringify(cssChunk.source)};` +
-              `document.head.appendChild(style);` +
+              `
+const styleVars = document.createElement('style');
+styleVars.textContent = ${JSON.stringify(rootVars)};
+document.head.appendChild(styleVars);
+` +
+              `const style = document.createElement('style');
+style.textContent = ${JSON.stringify(cssChunk.source)};
+document.head.appendChild(style);
+` +
               jsChunk.code;
 
-            // Prevent emitting separate CSS file
             delete bundle[cssFile];
           }
         }

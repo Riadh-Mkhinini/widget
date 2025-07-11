@@ -28,15 +28,6 @@ export default Widget;
 
 // This is the function that the host page will calls
 export function initWidget(container: HTMLElement, options?: Options) {
-  const shadowRoot = container.attachShadow({ mode: "open" });
-  const shadowHost = document.createElement("div");
-  shadowRoot.appendChild(shadowHost);
-
-  // Inject styles manually
-  const style = document.createElement("style");
-  style.textContent = `/* tailwind output here */`;
-  shadowRoot.appendChild(style);
-
-  const root = ReactDOM.createRoot(shadowHost);
+  const root = ReactDOM.createRoot(container);
   root.render(<Widget options={options} />);
 }
