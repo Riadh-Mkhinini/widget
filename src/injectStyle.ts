@@ -1,6 +1,8 @@
-export function injectStyle(shadowRoot: ShadowRoot, cssUrl: string) {
-  const link = document.createElement("link");
-  link.rel = "stylesheet";
-  link.href = cssUrl;
-  shadowRoot.appendChild(link);
+export async function injectStyle(shadowRoot: ShadowRoot, cssUrl: string) {
+  const res = await fetch(cssUrl);
+  const cssText = await res.text();
+
+  const style = document.createElement("style");
+  style.textContent = cssText;
+  shadowRoot.appendChild(style);
 }

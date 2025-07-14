@@ -46,7 +46,8 @@ export default Widget;
 export function initWidget(container: HTMLElement, options?: Options) {
   const shadowRoot = container.attachShadow({ mode: "open" });
 
-  injectStyle(shadowRoot, new URL("./widget.css", import.meta.url).href);
+  const cssHref = new URL("./widget.css", import.meta.url).href;
+  injectStyle(shadowRoot, cssHref);
   const root = ReactDOM.createRoot(shadowRoot);
   root.render(<Widget options={options} />);
 }
