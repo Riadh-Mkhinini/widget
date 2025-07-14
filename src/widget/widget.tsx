@@ -4,7 +4,6 @@ import type { FC } from "react";
 import ReactDOM from "react-dom/client";
 import { Button } from "@/components/ui/button";
 import { injectStyle } from "@/injectStyle";
-import css from "../index.css?inline"; // Importing CSS as inline string
 
 type Options = {
   id?: string;
@@ -47,7 +46,7 @@ export default Widget;
 export function initWidget(container: HTMLElement, options?: Options) {
   const shadowRoot = container.attachShadow({ mode: "open" });
 
-  injectStyle(shadowRoot, css);
+  injectStyle(shadowRoot, new URL("./widget.css", import.meta.url).href);
   const root = ReactDOM.createRoot(shadowRoot);
   root.render(<Widget options={options} />);
 }
