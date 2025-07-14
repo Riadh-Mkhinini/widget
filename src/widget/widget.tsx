@@ -27,12 +27,12 @@ const Widget: FC<WidgetProps> = (props) => {
     );
   };
   return (
-    <div className="tw:font-sans p-4 tw:rounded tw:border tw:bg-background tw:text-foreground tw:shadow-md">
-      <h2 className="tw:text-lg tw:font-bold tw:mb-2">📦 Bookini Widget</h2>
-      <p className="tw:text-sm">
-        Loaded with ID: <span className="tw:font-mono">{options?.id}</span>
+    <div className="font-sans p-4 rounded border bg-background text-foreground shadow-md">
+      <h2 className="text-lg font-bold mb-2">📦 Bookini Widget</h2>
+      <p className="text-sm">
+        Loaded with ID: <span className="font-mono">{options?.id}</span>
       </p>
-      <Button className="tw:mt-4" onClick={onClick}>
+      <Button className="mt-4" onClick={onClick}>
         Click Me
       </Button>
     </div>
