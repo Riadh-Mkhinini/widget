@@ -1,4 +1,4 @@
-@import "tailwindcss" prefix(ibe);
+/* @import "tailwindcss" prefix(ibe);
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
@@ -117,4 +117,4 @@
   body {
     @apply ibe:bg-background ibe:text-foreground;
   }
-}
+} */
