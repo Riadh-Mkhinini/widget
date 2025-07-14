@@ -1,8 +1,9 @@
-import "../index.css";
-import ReactDOM from "react-dom/client";
+/* eslint-disable react-refresh/only-export-components */
 import type { FC } from "react";
+import ReactDOM from "react-dom/client";
 import { Button } from "@/components/ui/button";
 import { injectStyle } from "@/injectStyle";
+import "../index.css";
 
 type Options = {
   id?: string;
@@ -11,16 +12,21 @@ type Options = {
     params: { rooms: number; adults: number; children: Array<number> }
   ) => void;
 };
-
 type WidgetProps = {
   options?: Options;
 };
 
-const Widget: FC<WidgetProps> = ({ options }) => {
+const Widget: FC<WidgetProps> = (props) => {
+  const { options } = props;
+
   const onClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     options?.onClickSearch?.(event, { rooms: 1, adults: 1, children: [] });
+    window.dispatchEvent(
+      new CustomEvent("bookini:search", {
+        detail: { id: options?.id, rooms: 1, adults: 1, children: [] },
+      })
+    );
   };
-
   return (
     <div className="font-sans p-4 rounded border bg-background text-foreground shadow-md">
       <h2 className="text-lg font-bold mb-2">📦 Bookini Widget</h2>
@@ -36,11 +42,13 @@ const Widget: FC<WidgetProps> = ({ options }) => {
 
 export default Widget;
 
-// eslint-disable-next-line react-refresh/only-export-components
-export async function initWidget(container: HTMLElement, options?: Options) {
+// This is the function that the host page will calls
+export function initWidget(container: HTMLElement, options?: Options) {
   const shadowRoot = container.attachShadow({ mode: "open" });
+
   const cssUrl = new URL("./widget.css", import.meta.url).href;
-  await injectStyle(shadowRoot, cssUrl);
-  const root = ReactDOM.createRoot(shadowRoot);
-  root.render(<Widget options={options} />);
+  injectStyle(shadowRoot, cssUrl).then(() => {
+    const root = ReactDOM.createRoot(shadowRoot);
+    root.render(<Widget options={options} />);
+  });
 }
