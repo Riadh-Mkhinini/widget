@@ -43,11 +43,13 @@ const Widget: FC<WidgetProps> = (props) => {
 export default Widget;
 
 // This is the function that the host page will calls
-export async function initWidget(container: HTMLElement, options?: Options) {
+export function initWidget(container: HTMLElement, options?: Options) {
   const shadowRoot = container.attachShadow({ mode: "open" });
 
-  const cssHref = new URL("./widget.css", import.meta.url).href;
-  await injectStyle(shadowRoot, cssHref);
+  const cssUrl = new URL("./widget.css", import.meta.url).href;
+  injectStyle(shadowRoot, cssUrl);
+  console.log("Fetching CSS from:", cssUrl);
+
   const root = ReactDOM.createRoot(shadowRoot);
   root.render(<Widget options={options} />);
 }
