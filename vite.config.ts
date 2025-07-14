@@ -8,32 +8,32 @@ export default defineConfig({
   plugins: [
     react(),
     tailwindcss(),
-    {
-      name: "inline-css",
-      apply: "build",
-      enforce: "post",
-      generateBundle(_, bundle) {
-        const jsFile = Object.keys(bundle).find((file) => file.endsWith(".js"));
-        const cssFile = Object.keys(bundle).find((file) =>
-          file.endsWith(".css")
-        );
+    // {
+    //   name: "inline-css",
+    //   apply: "build",
+    //   enforce: "post",
+    //   generateBundle(_, bundle) {
+    //     const jsFile = Object.keys(bundle).find((file) => file.endsWith(".js"));
+    //     const cssFile = Object.keys(bundle).find((file) =>
+    //       file.endsWith(".css")
+    //     );
 
-        if (jsFile && cssFile) {
-          const jsChunk = bundle[jsFile];
-          const cssChunk = bundle[cssFile];
+    //     if (jsFile && cssFile) {
+    //       const jsChunk = bundle[jsFile];
+    //       const cssChunk = bundle[cssFile];
 
-          if (jsChunk.type === "chunk" && cssChunk.type === "asset") {
-            jsChunk.code =
-              `const style = document.createElement('style');` +
-              `style.textContent = ${JSON.stringify(cssChunk.source)};` +
-              `document.head.appendChild(style);` +
-              jsChunk.code;
+    //       if (jsChunk.type === "chunk" && cssChunk.type === "asset") {
+    //         jsChunk.code =
+    //           `const style = document.createElement('style');` +
+    //           `style.textContent = ${JSON.stringify(cssChunk.source)};` +
+    //           `document.head.appendChild(style);` +
+    //           jsChunk.code;
 
-            delete bundle[cssFile];
-          }
-        }
-      },
-    },
+    //         delete bundle[cssFile];
+    //       }
+    //     }
+    //   },
+    // },
   ],
   define: {
     "process.env.NODE_ENV": JSON.stringify("production"),
@@ -45,6 +45,7 @@ export default defineConfig({
       formats: ["es"],
       fileName: () => "widget.js",
     },
+    cssCodeSplit: false,
   },
   resolve: {
     alias: {

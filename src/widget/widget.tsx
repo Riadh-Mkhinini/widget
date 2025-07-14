@@ -3,6 +3,8 @@ import "../index.css";
 import type { FC } from "react";
 import ReactDOM from "react-dom/client";
 import { Button } from "@/components/ui/button";
+import { injectStyle } from "@/injectStyle";
+import css from "../index.css?inline"; // Importing CSS as inline string
 
 type Options = {
   id?: string;
@@ -43,6 +45,9 @@ export default Widget;
 
 // This is the function that the host page will calls
 export function initWidget(container: HTMLElement, options?: Options) {
-  const root = ReactDOM.createRoot(container);
+  const shadowRoot = container.attachShadow({ mode: "open" });
+
+  injectStyle(shadowRoot, css);
+  const root = ReactDOM.createRoot(shadowRoot);
   root.render(<Widget options={options} />);
 }

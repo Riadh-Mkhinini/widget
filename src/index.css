@@ -1,4 +1,4 @@
-/* @import "tailwindcss" prefix(ibe);
+@import "tailwindcss";
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
@@ -112,9 +112,9 @@
 
 @layer base {
   * {
-    @apply ibe:border-border ibe:outline-ring/50;
+    @apply border-border outline-ring/50;
   }
   body {
-    @apply ibe:bg-background ibe:text-foreground;
+    @apply bg-background text-foreground;
   }
-} */
+}
