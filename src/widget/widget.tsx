@@ -47,9 +47,8 @@ export function initWidget(container: HTMLElement, options?: Options) {
   const shadowRoot = container.attachShadow({ mode: "open" });
 
   const cssUrl = new URL("./widget.css", import.meta.url).href;
-  injectStyle(shadowRoot, cssUrl);
-  console.log("Fetching CSS from:", cssUrl);
-
-  const root = ReactDOM.createRoot(shadowRoot);
-  root.render(<Widget options={options} />);
+  injectStyle(shadowRoot, cssUrl).then(() => {
+    const root = ReactDOM.createRoot(shadowRoot);
+    root.render(<Widget options={options} />);
+  });
 }
