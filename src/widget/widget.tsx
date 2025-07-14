@@ -1,9 +1,9 @@
 /* eslint-disable react-refresh/only-export-components */
-import "../index.css";
 import type { FC } from "react";
 import ReactDOM from "react-dom/client";
 import { Button } from "@/components/ui/button";
 import { injectStyle } from "@/injectStyle";
+import "../index.css";
 
 type Options = {
   id?: string;
