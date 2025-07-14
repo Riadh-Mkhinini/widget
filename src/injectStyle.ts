@@ -1,10 +1,19 @@
-export async function injectStyle(shadowRoot: ShadowRoot, cssUrl: string) {
-  const res = await fetch(cssUrl);
-  const cssText = await res.text();
-  const style = document.createElement("style");
+export function injectStyleLink(
+  shadowRoot: ShadowRoot,
+  href: string
+): Promise<void> {
+  return new Promise((resolve, reject) => {
+    const link = document.createElement("link");
+    link.rel = "stylesheet";
+    link.href = href;
 
-  style.setAttribute("type", "text/css");
-  style.textContent = cssText;
+    link.onload = () => resolve();
+    link.onerror = reject;
 
-  shadowRoot.appendChild(style);
+    // Create <head> inside shadow root if not exist
+    const wrapper = document.createElement("div");
+    const shadowHead = shadowRoot.querySelector("head") || shadowRoot;
+
+    shadowHead.insertBefore(link, shadowHead.firstChild);
+  });
 }
