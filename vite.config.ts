@@ -1,13 +1,47 @@
 import path from "path";
 import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
-import { defineConfig } from "vite";
+import { defineConfig, type PluginOption } from "vite";
 
+const tailwindFix: PluginOption = {
+  name: "tailwind-shadow-dom-vars",
+  apply: "build",
+  enforce: "post" as const,
+  generateBundle(_, bundle) {
+    const cssFile = Object.keys(bundle).find((file) => file.endsWith(".css"));
+    if (!cssFile) return;
+
+    const cssAsset = bundle[cssFile];
+    if (cssAsset.type === "asset" && typeof cssAsset.source === "string") {
+      cssAsset.source += `
+
+:host *, :host *::before, :host *::after {
+  --tw-border-style: solid;
+  --tw-shadow: 0 0 #0000;
+  --tw-shadow-color: initial;
+  --tw-shadow-alpha: 1;
+  --tw-ring-color: initial;
+  --tw-ring-shadow: 0 0 #0000;
+  --tw-ring-inset: initial;
+  --tw-ring-offset-shadow: 0 0 #0000;
+  --tw-ring-offset-width: 0px;
+  --tw-ring-offset-color: #fff;
+  --tw-inset-shadow: 0 0 #0000;
+  --tw-inset-shadow-color: initial;
+  --tw-inset-ring-color: initial;
+  --tw-inset-ring-shadow: 0 0 #0000;
+  --tw-outline-style: solid;
+}
+`;
+    }
+  },
+};
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
     react(),
     tailwindcss(),
+    tailwindFix,
     // {
     //   name: "inline-css",
     //   apply: "build",
@@ -34,24 +68,6 @@ export default defineConfig({
     //     }
     //   },
     // },
-    {
-      name: "duplicate-root-as-host",
-      enforce: "post",
-      apply: "build",
-      generateBundle(_, bundle) {
-        for (const file of Object.values(bundle)) {
-          if (file.type === "asset" && file.fileName.endsWith(".css")) {
-            const css = file.source as string;
-            const rootMatch = css.match(/:root\s*{[^}]+}/);
-            if (rootMatch) {
-              const rootBlock = rootMatch[0];
-              const hostBlock = rootBlock.replace(/:root/g, ":host");
-              file.source += `\n${hostBlock}`;
-            }
-          }
-        }
-      },
-    },
   ],
   define: {
     "process.env.NODE_ENV": JSON.stringify("production"),
