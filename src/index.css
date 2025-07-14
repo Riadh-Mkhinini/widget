@@ -1,4 +1,6 @@
+@import "tailwindcss" prefix(tw);
 @import "tw-animate-css";
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -108,14 +110,11 @@
   --sidebar-ring: oklch(0.556 0 0);
 }
 
-:where(#bookini-ibe-widget) {
-  @import "tailwindcss";
-  @layer base {
-    * {
-      @apply border-border outline-ring/50;
-    }
-    body {
-      @apply bg-background text-foreground;
-    }
+@layer base {
+  * {
+    @apply tw:border-border tw:outline-ring/50;
+  }
+  body {
+    @apply tw:bg-background tw:text-foreground;
   }
 }
