@@ -1,6 +1,8 @@
-export async function injectStyle(shadowRoot: ShadowRoot, cssText: string) {
-  const style = document.createElement("style");
+export async function injectStyle(shadowRoot: ShadowRoot, cssUrl: string) {
+  const res = await fetch(cssUrl);
+  const cssText = await res.text();
 
+  const style = document.createElement("style");
   style.textContent = `
     :host {
       all: initial;
@@ -41,6 +43,5 @@ export async function injectStyle(shadowRoot: ShadowRoot, cssText: string) {
 
     ${cssText}
   `;
-
   shadowRoot.appendChild(style);
 }
