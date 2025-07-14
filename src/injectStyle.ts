@@ -11,7 +11,6 @@ export function injectStyleLink(
     link.onerror = reject;
 
     // Create <head> inside shadow root if not exist
-    const wrapper = document.createElement("div");
     const shadowHead = shadowRoot.querySelector("head") || shadowRoot;
 
     shadowHead.insertBefore(link, shadowHead.firstChild);
