@@ -34,6 +34,24 @@ export default defineConfig({
     //     }
     //   },
     // },
+    {
+      name: "duplicate-root-as-host",
+      enforce: "post",
+      apply: "build",
+      generateBundle(_, bundle) {
+        for (const file of Object.values(bundle)) {
+          if (file.type === "asset" && file.fileName.endsWith(".css")) {
+            const css = file.source as string;
+            const rootMatch = css.match(/:root\s*{[^}]+}/);
+            if (rootMatch) {
+              const rootBlock = rootMatch[0];
+              const hostBlock = rootBlock.replace(/:root/g, ":host");
+              file.source += `\n${hostBlock}`;
+            }
+          }
+        }
+      },
+    },
   ],
   define: {
     "process.env.NODE_ENV": JSON.stringify("production"),
