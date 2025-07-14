@@ -47,6 +47,7 @@ export default defineConfig({
       fileName: () => "widget.js",
     },
   },
+
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),

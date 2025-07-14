@@ -1,8 +1,7 @@
-export async function injectStyle(shadowRoot: ShadowRoot, cssUrl: string) {
-  const res = await fetch(cssUrl);
-  const cssText = await res.text();
+import css from "./index.css?inline";
 
+export function injectStyle(shadowRoot: ShadowRoot) {
   const style = document.createElement("style");
-  style.textContent = cssText;
+  style.textContent = css;
   shadowRoot.appendChild(style);
 }
